@@ -1,0 +1,12 @@
+{
+  "name": "planer-dnia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Planer dnia z checklistą",
+  "dependencies": {
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/app": "^6.0.0",
+    "@capacitor/cli": "^6.1.0",
+    "@capacitor/core": "^6.1.0"
+  }
+}

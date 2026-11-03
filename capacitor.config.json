@@ -1,0 +1,8 @@
+{
+  "appId": "pl.planer.dnia",
+  "appName": "Planer dnia",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#dfeefb"
+  }
+}
