@@ -27,6 +27,11 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Stały klucz podpisu (dzięki temu nowe wersje instalują się na starą)
+        run: |
+          mkdir -p ~/.android
+          cp debug.keystore ~/.android/debug.keystore
+
       - name: Budowanie APK
         run: cd android && ./gradlew assembleDebug
 
