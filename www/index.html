@@ -20,7 +20,7 @@ body{
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
 }
-input,textarea{user-select:text;-webkit-user-select:text}
+input,textarea,select{user-select:text;-webkit-user-select:text}
 #app{height:100vh;height:100dvh;display:flex;flex-direction:column;padding-top:var(--sat)}
 
 header{display:flex;align-items:center;justify-content:space-between;padding:8px 8px 6px;flex:none}
@@ -38,6 +38,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 
 /* Widok kalendarza */
 .grid{position:relative;height:1440px;margin:12px 0 130px}
+.sleep{position:absolute;left:54px;right:0;background:rgba(29,43,58,.07);pointer-events:none}
+.duty{position:absolute;left:54px;right:0;border-left:3px solid rgba(29,43,58,.25);background:repeating-linear-gradient(135deg,rgba(29,43,58,.08) 0 6px,rgba(29,43,58,.03) 6px 12px);pointer-events:none}
+.duty small{position:absolute;right:8px;top:2px;font-size:10px;color:var(--muted)}
 .hl{position:absolute;left:54px;right:0;border-top:1px solid var(--line)}
 .hl span{position:absolute;left:-54px;width:46px;text-align:right;top:-8px;font-size:11px;color:var(--muted)}
 .evs{position:absolute;left:58px;right:12px;top:0;bottom:0}
@@ -53,17 +56,48 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 /* Checklista */
 .tasks{padding:6px 14px 140px;display:flex;flex-direction:column;gap:8px}
 .prog{font-size:13px;color:var(--muted);padding:2px 4px}
-.task{display:flex;align-items:center;gap:6px;background:#fff;border-radius:14px;padding:6px 14px 6px 4px;min-height:58px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card{background:#fff;border-radius:14px;padding:8px 14px 12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card .top{display:flex;justify-content:space-between;align-items:center;min-height:36px}
+.card .top b{font-size:14px}
+.gear{width:40px;height:40px;margin-right:-10px;border:0;background:none;color:var(--muted);display:grid;place-items:center;border-radius:50%;padding:0}
+.gear:active{background:rgba(0,0,0,.07)}
+.bar{height:8px;border-radius:6px;background:#e8edf1;overflow:hidden;margin:2px 0 7px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:6px;transition:width .3s}
+.bar.mid i{background:#e0942f}
+.bar.over i{background:#d9453f}
+.card .txt{font-size:13px;color:var(--muted)}
+.card .txt.sm{font-size:12px;margin-top:3px;opacity:.85}
+.card.over .txt{color:#c62f3a;font-weight:600}
+.inbox{display:flex;justify-content:space-between;align-items:center;width:100%;border:0;background:#fff;border-radius:14px;padding:12px 14px;font:inherit;font-size:15px;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08);min-height:48px}
+.inbox:active{filter:brightness(.96)}
+.badge{min-width:24px;height:24px;border-radius:12px;background:var(--accent);color:#fff;font-size:13px;display:grid;place-items:center;padding:0 7px}
+.badge.zero{background:#cfd6dd}
+.task{display:flex;align-items:flex-start;gap:6px;background:#fff;border-radius:14px;padding:4px 14px 6px 4px;min-height:58px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .task:active{filter:brightness(.97)}
 .cbw{flex:none;width:48px;height:48px;border:0;background:none;display:grid;place-items:center;padding:0}
 .cb{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent);display:grid;place-items:center;transition:background .15s}
 .cb svg{opacity:0}
 .task.done .cb{background:var(--accent)}
 .task.done .cb svg{opacity:1}
-.task .tt{flex:1;min-width:0;font-size:16px;overflow-wrap:anywhere}
-.task .sub{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.task.done .tt{text-decoration:line-through;color:var(--muted)}
-.empty{text-align:center;color:var(--muted);padding:60px 20px;line-height:1.6}
+.task .tt{flex:1;min-width:0;padding-top:11px}
+.ttl{font-size:16px;overflow-wrap:anywhere;line-height:1.3}
+.task.done .ttl{text-decoration:line-through;color:var(--muted)}
+.dsc{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.chip{font-size:11.5px;padding:2px 8px;border-radius:10px;background:#eef1f4;color:var(--muted);display:inline-flex;align-items:center;gap:5px;max-width:100%;line-height:1.4}
+.chip.red{background:#fde4e4;color:#b4232d}
+.chip.orange{background:#fdeed6;color:#9a5a08}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.subs{margin-top:4px;display:flex;flex-direction:column;padding-bottom:2px}
+.sub{display:flex;align-items:center;min-height:36px;font-size:14px}
+.sbw{flex:none;width:36px;height:36px;border:0;background:none;display:grid;place-items:center;padding:0;margin-left:-8px}
+.scb{width:20px;height:20px;border-radius:6px;border:2px solid var(--accent);display:grid;place-items:center}
+.scb svg{opacity:0}
+.sub.done .scb{background:var(--accent)}
+.sub.done .scb svg{opacity:1}
+.sub span{overflow-wrap:anywhere;min-width:0}
+.sub.done span{text-decoration:line-through;color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:40px 20px;line-height:1.6}
 
 /* Przyciski pływające */
 .fab{position:fixed;bottom:calc(22px + var(--sab));width:60px;height:60px;border-radius:50%;border:0;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:5;padding:0;transition:background .35s,color .35s}
@@ -79,7 +113,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @keyframes up{from{transform:translateY(40px)}to{transform:none}}
 .sheet h2{margin:0 0 4px;font-size:20px;overflow-wrap:anywhere}
-.sheet .meta{color:var(--muted);font-size:14px;margin-bottom:12px}
+.sheet h3{margin:14px 0 4px;font-size:13px;color:var(--muted);font-weight:600}
+.sheet .meta{color:var(--muted);font-size:14px;margin-bottom:12px;line-height:1.45}
 .sheet .desc{font-size:15px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;margin-bottom:14px}
 .sheet .desc.none{color:var(--muted);font-style:italic}
 .btn{display:block;width:100%;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:600;background:#eef1f4;color:var(--ink);margin-top:8px}
@@ -89,9 +124,40 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 .row{display:flex;gap:10px}
 .field{flex:1;display:flex;flex-direction:column;gap:4px;margin-bottom:12px;min-width:0}
 .field label{font-size:12px;color:var(--muted)}
-.field input,.field textarea{font:inherit;font-size:16px;border:1px solid #cfd6dd;border-radius:10px;padding:11px 12px;background:#fff;color:var(--ink);width:100%}
-.field input:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
+.field input,.field textarea,.field select{font:inherit;font-size:16px;border:1px solid #cfd6dd;border-radius:10px;padding:11px 12px;background:#fff;color:var(--ink);width:100%}
+.field input:focus,.field textarea:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
 .err{color:#c62f3a;font-size:13px;min-height:18px;margin-bottom:4px}
+.hint{font-size:13px;color:var(--muted);margin:-4px 0 12px;line-height:1.4}
+.hint.warn{color:#c62f3a;font-weight:600}
+.inline{display:flex;gap:8px;align-items:center}
+.mini{flex:none;border:0;background:#eef1f4;border-radius:10px;padding:0 12px;height:44px;font-size:14px;color:var(--ink)}
+.chk{display:flex;align-items:center;gap:10px;font-size:14px;margin:0 0 12px;min-height:32px}
+.chk input{width:20px;height:20px;margin:0}
+.chipsel{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chipsel button{border:0;border-radius:16px;padding:7px 12px;background:#eef1f4;font-size:13px;color:var(--ink)}
+.chipsel button.on{background:var(--accent);color:#fff}
+.sw{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.sw button{width:38px;height:38px;border-radius:50%;border:3px solid transparent;background:var(--c);padding:0}
+.sw button.on{border-color:#1d2b3a;box-shadow:0 0 0 2px #fff inset}
+.subed{display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+.subed .inline input{font:inherit;font-size:15px;border:1px solid #cfd6dd;border-radius:10px;padding:9px 11px;min-width:0}
+.subrow{gap:10px}
+.gcb{flex:none;width:22px;height:22px;border-radius:6px;border:2px solid #b9c2cb;background:#f1f3f5;margin-left:3px}
+.subrow.ghost{opacity:.5}
+.subrow.ghost input{background:#f7f8f9}
+.ibx{background:#f4f7f9;border-radius:12px;padding:10px 12px 12px;margin-bottom:8px}
+.ibx .ittl{font-size:16px;font-weight:600;overflow-wrap:anywhere}
+.acts{display:flex;gap:6px;margin-top:10px}
+.acts button{flex:1;border:0;border-radius:10px;padding:11px 4px;font-size:14px;font-weight:600;background:#e1e9f0;color:var(--ink)}
+.acts button.more{flex:none;width:44px}
+.sday{background:#f4f7f9;border-radius:12px;padding:10px 12px 12px;margin-bottom:8px}
+.sday>b{font-size:14px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.sgrid.one{grid-template-columns:1fr}
+.sc{display:flex;flex-direction:column;gap:3px;min-width:0}
+.sc small{color:var(--muted);font-size:12px}
+.sc input{font:inherit;font-size:16px;border:1px solid #cfd6dd;border-radius:10px;padding:9px 10px;width:100%;min-width:0;background:#fff;color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:calc(96px + var(--sab));transform:translateX(-50%);background:#1d2b3a;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;z-index:20;max-width:86%;text-align:center;line-height:1.35}
 </style>
 </head>
 <body>
@@ -114,26 +180,61 @@ const KEY = 'planer-dnia-v1';
 const WD = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
 const ROM = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
 const MON = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
-const PAL = [['#2f74c0','#cfe3f8'],['#7b61d1','#e0d9f7'],['#1f9d8f','#cdeee9'],['#e0842f','#fbe3cb'],['#d4577a','#f7d6e0']];
+/* pierwsze 5 kolorów jak w wersji 1 (stare wydarzenia bez wybranego koloru dostają jeden z nich) */
+const PAL = [
+  ['#2f74c0','#cfe3f8','Niebieski'],['#7b61d1','#e0d9f7','Fioletowy'],['#1f9d8f','#cdeee9','Turkusowy'],
+  ['#e0842f','#fbe3cb','Pomarańczowy'],['#d4577a','#f7d6e0','Różowy'],['#d9534f','#f9d7d5','Czerwony'],
+  ['#3f9e4d','#d5efd9','Zielony'],['#8a6d3b','#efe3cf','Brązowy']
+];
 const CHECK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const CHECK_S = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const GEAR = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>';
 
 const pad = n => String(n).padStart(2, '0');
 const keyOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 const parseKey = k => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
 const addDays = (k, n) => { const d = parseKey(k); d.setDate(d.getDate() + n); return keyOf(d); };
+const todayKey = () => keyOf(new Date());
 const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
 const fromMin = n => `${pad(Math.floor(n / 60))}:${pad(n % 60)}`;
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 const hash = s => { let x = 0; for (const c of s) x = (x * 31 + c.charCodeAt(0)) >>> 0; return x; };
 const longDate = k => { const d = parseKey(k); return `${WD[d.getDay()]}, ${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}`; };
+const shortDate = k => { const d = parseKey(k); return `${d.getDate()} ${ROM[d.getMonth()]}`; };
+const fmtDur = m => {
+  m = Math.max(0, Math.round(m));
+  if (m < 60) return `${m} min`;
+  const hh = Math.floor(m / 60), r = m % 60;
+  return r ? `${hh} h ${r} min` : `${hh} h`;
+};
 
 /* ---------- Dane ---------- */
-let store = { events: [], tasks: [], mode: 'cal' };
+const SLEEP_DEF = { wake: '07:00', bed: '23:00' };
+let store = { events: [], tasks: [], mode: 'cal', settings: { sleep: {} } };
 try {
   const s = JSON.parse(localStorage.getItem(KEY));
   if (s && typeof s === 'object') store = Object.assign(store, s);
 } catch (e) {}
-let day = keyOf(new Date());
+/* uzupełnienie pól w danych z wcześniejszych wersji */
+(function normalize() {
+  if (!Array.isArray(store.events)) store.events = [];
+  if (!Array.isArray(store.tasks)) store.tasks = [];
+  if (!store.settings || typeof store.settings !== 'object') store.settings = {};
+  if (!store.settings.sleep || typeof store.settings.sleep !== 'object') store.settings.sleep = {};
+  for (let d = 0; d < 7; d++) {
+    const s = store.settings.sleep[d];
+    if (!s || !s.wake || !s.bed) store.settings.sleep[d] = { wake: SLEEP_DEF.wake, bed: SLEEP_DEF.bed, wStart: '', wEnd: '', commute: 0 };
+    else { s.wStart = s.wStart || ''; s.wEnd = s.wEnd || ''; s.commute = Number(s.commute) || 0; }
+  }
+  store.tasks.forEach(t => {
+    if (!Array.isArray(t.subs)) t.subs = [];
+    t.est = Number(t.est) || 0;
+    t.deadline = t.deadline || null;
+    t.eventId = t.eventId || null;
+    if (t.date === undefined) t.date = null;
+  });
+})();
+let day = todayKey();
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} };
 
 /* ---------- Pomocnicze DOM ---------- */
@@ -156,13 +257,26 @@ const $ = id => document.getElementById(id);
 
 /* ---------- Arkusze (modale) ---------- */
 let overlay = null;
+let back = null; /* co otworzyć po zamknięciu arkusza podrzędnego (np. powrót do skrzynki) */
 function openSheet(...content) {
   closeSheet();
-  overlay = h('div', { class: 'ov', onclick: e => { if (e.target === overlay) closeSheet(); } },
+  overlay = h('div', { class: 'ov', onclick: e => { if (e.target === overlay) dismiss(); } },
     h('div', { class: 'sheet' }, ...content));
   document.body.append(overlay);
 }
 function closeSheet() { if (overlay) { overlay.remove(); overlay = null; } }
+function runBack() { const b = back; back = null; if (b) b(); }
+function dismiss() { closeSheet(); render(null, 'keep'); runBack(); }
+function finish() { closeSheet(); render(null, 'keep'); runBack(); }
+
+let toastEl = null, toastT = null;
+function toast(msg) {
+  if (toastEl) toastEl.remove();
+  clearTimeout(toastT);
+  toastEl = h('div', { class: 'toast' }, msg);
+  document.body.append(toastEl);
+  toastT = setTimeout(() => { if (toastEl) { toastEl.remove(); toastEl = null; } }, 3200);
+}
 
 /* ---------- Długie przytrzymanie / kliknięcie ---------- */
 function press(el, onTap, onLong) {
@@ -185,6 +299,59 @@ function press(el, onTap, onLong) {
     onTap(e);
   });
   el.addEventListener('contextmenu', e => e.preventDefault());
+}
+
+/* ---------- Kolory, sen i obciążenie dnia ---------- */
+const colorOf = e => {
+  const i = Number.isInteger(e.color) && PAL[e.color] ? e.color : hash(e.id) % 5;
+  return PAL[i];
+};
+
+/* okno „na nogach” danego dnia: [pobudka, pójście spać] w minutach od 00:00 (spanie po północy → >1440) */
+function winOf(k) {
+  const s = store.settings.sleep[parseKey(k).getDay()];
+  const w = toMin(s.wake);
+  let b = toMin(s.bed);
+  if (b <= w) b += 1440;
+  return [w, b];
+}
+
+/* praca i powrót do domu danego dnia (stałe, zależne od dnia tygodnia) */
+function dutyOf(k) {
+  const s = store.settings.sleep[parseKey(k).getDay()];
+  if (!(s.wStart && s.wEnd)) return {};
+  const ws = toMin(s.wStart), we = toMin(s.wEnd);
+  if (we <= ws) return {};
+  const out = { work: [ws, we] };
+  if (s.commute > 0) out.commute = [we, Math.min(we + s.commute, 1440)];
+  return out;
+}
+
+function loadFor(k, extra = 0, excludeId = null) {
+  const [w, b] = winOf(k);
+  const du = dutyOf(k);
+  const raw = store.events.filter(e => e.date === k).map(e => [toMin(e.start), toMin(e.end)]);
+  if (du.work) raw.push(du.work);
+  if (du.commute) raw.push(du.commute);
+  const iv = raw.map(([s, e]) => [Math.max(w, s), Math.min(b, e)])
+    .filter(x => x[1] > x[0]).sort((a, c) => a[0] - c[0]);
+  let busy = 0, cs = null, ce = null;
+  iv.forEach(([s, e]) => {
+    if (cs === null) { cs = s; ce = e; }
+    else if (s <= ce) ce = Math.max(ce, e);
+    else { busy += ce - cs; cs = s; ce = e; }
+  });
+  if (cs !== null) busy += ce - cs;
+  const free = Math.max(0, (b - w) - busy);
+  const planned = store.tasks.filter(t => t.date === k && t.id !== excludeId)
+    .reduce((a, t) => a + (t.est || 0), 0) + extra;
+  return { awake: b - w, busy, free, planned, over: planned - free };
+}
+
+function loadText(l) {
+  if (l.planned === 0) return `Wolne: ${fmtDur(l.free)} (bez snu, pracy i wydarzeń)`;
+  if (l.over > 0) return `Przeciążenie o ${fmtDur(l.over)} — zaplanowano ${fmtDur(l.planned)}, wolne ${fmtDur(l.free)}`;
+  return `Zaplanowano ${fmtDur(l.planned)} z ${fmtDur(l.free)} wolnych`;
 }
 
 /* ---------- Układ nakładających się wydarzeń ---------- */
@@ -213,6 +380,7 @@ function layout(evs) {
 }
 
 const dayEvents = () => store.events.filter(e => e.date === day).sort((a, b) => a.start.localeCompare(b.start));
+const linkedTasks = id => store.tasks.filter(t => t.eventId === id);
 
 /* ---------- Widok: plan dnia ---------- */
 let nowEl = null;
@@ -224,24 +392,32 @@ function updateNow() {
 }
 function buildCal() {
   const grid = h('div', { class: 'grid' });
+  const [w, b] = winOf(day);
+  if (w > 0) grid.append(h('div', { class: 'sleep', style: `top:0;height:${w}px` }));
+  if (b < 1440) grid.append(h('div', { class: 'sleep', style: `top:${b}px;height:${1440 - b}px` }));
+  const du = dutyOf(day);
+  if (du.work) grid.append(h('div', { class: 'duty', style: `top:${du.work[0]}px;height:${du.work[1] - du.work[0]}px` }, h('small', {}, 'Praca')));
+  if (du.commute) grid.append(h('div', { class: 'duty', style: `top:${du.commute[0]}px;height:${du.commute[1] - du.commute[0]}px` }, h('small', {}, 'Powrót do domu')));
   for (let i = 0; i < 24; i++) {
     grid.append(h('div', { class: 'hl', style: `top:${i * 60}px` }, h('span', {}, `${pad(i)}:00`)));
   }
   const evs = h('div', { class: 'evs' });
   layout(dayEvents()).forEach(it => {
     const e = it.e, dur = it.f - it.s;
-    const [ac, bg] = PAL[hash(e.id) % PAL.length];
+    const [ac, bg] = colorOf(e);
     const ht = Math.max(dur, 30) - 2;
+    const lt = linkedTasks(e.id);
+    const prog = lt.length ? ` · ✓ ${lt.filter(t => t.done).length}/${lt.length}` : '';
     const el = h('div', {
       class: 'ev' + (dur < 50 ? ' one' : '') + (dur >= 90 ? ' tall' : ''),
       style: `top:${it.s}px;height:${ht}px;left:${it.col / it.cols * 100}%;width:calc(${100 / it.cols}% - 3px);--c:${ac};--bg2:${bg}`
-    }, h('div', { class: 't' }, e.title), h('div', { class: 'tm' }, `${e.start} – ${e.end}`));
+    }, h('div', { class: 't' }, e.title), h('div', { class: 'tm' }, `${e.start} – ${e.end}${prog}`));
     press(el, () => showDetail('event', e.id), () => showMenu('event', e.id));
     evs.append(el);
   });
   grid.append(evs);
   nowEl = null;
-  if (day === keyOf(new Date())) {
+  if (day === todayKey()) {
     nowEl = h('div', { class: 'now' });
     grid.append(nowEl); updateNow();
   }
@@ -249,11 +425,52 @@ function buildCal() {
 }
 
 /* ---------- Widok: checklista ---------- */
+const inboxTasks = () => store.tasks.filter(t => !t.done && (t.date === null || t.date < todayKey()));
+
+function chipsFor(t, o = {}) {
+  const out = [];
+  const today = todayKey();
+  if (o.origin) {
+    if (t.date === null) out.push(h('span', { class: 'chip' }, 'bez dnia'));
+    else if (t.date < today) out.push(h('span', { class: 'chip red' }, 'z dnia ' + shortDate(t.date)));
+  }
+  if (t.deadline) {
+    if (!t.done && t.deadline < today) out.push(h('span', { class: 'chip red' }, 'po terminie · ' + shortDate(t.deadline)));
+    else if (!t.done && t.deadline === today) out.push(h('span', { class: 'chip orange' }, 'termin: dziś'));
+    else out.push(h('span', { class: 'chip' }, 'termin ' + shortDate(t.deadline)));
+  }
+  if (t.est) out.push(h('span', { class: 'chip' }, '~' + fmtDur(t.est)));
+  const ev = t.eventId && store.events.find(e => e.id === t.eventId);
+  if (ev) out.push(h('span', { class: 'chip', style: `--c:${colorOf(ev)[0]}` }, h('i', { class: 'dot' }), ev.title));
+  if (o.subs && t.subs.length) out.push(h('span', { class: 'chip' }, `${t.subs.filter(s => s.done).length}/${t.subs.length} podzadań`));
+  return out;
+}
+
+function loadCard() {
+  const l = loadFor(day);
+  const pct = l.free > 0 ? Math.min(100, l.planned / l.free * 100) : (l.planned > 0 ? 100 : 0);
+  const cls = l.over > 0 ? ' over' : (pct >= 80 ? ' mid' : '');
+  const gear = h('button', { class: 'gear', 'aria-label': 'Ustawienia snu', html: GEAR, onclick: () => { back = null; openSettings(); } });
+  return h('div', { class: 'card' + (l.over > 0 ? ' over' : '') },
+    h('div', { class: 'top' }, h('b', {}, 'Obciążenie dnia'), gear),
+    h('div', { class: 'bar' + cls }, h('i', { style: `width:${pct}%` })),
+    h('div', { class: 'txt' }, loadText(l)),
+    h('div', { class: 'txt sm' }, `Na nogach ${fmtDur(l.awake)} · zajęte ${fmtDur(l.busy)} (praca, powrót, wydarzenia)`));
+}
+
+function inboxButton() {
+  const n = inboxTasks().length;
+  return h('button', { class: 'inbox', onclick: () => { back = null; openInbox(); } },
+    h('span', {}, 'Skrzynka zadań (zaległe i bez dnia)'),
+    h('span', { class: 'badge' + (n ? '' : ' zero') }, String(n)));
+}
+
 function buildList() {
   const ts = store.tasks.filter(t => t.date === day);
   const open = ts.filter(t => !t.done).sort((a, b) => a.created - b.created);
   const done = ts.filter(t => t.done).sort((a, b) => (a.doneAt || 0) - (b.doneAt || 0));
   const wrap = h('div', { class: 'tasks' });
+  wrap.append(loadCard(), inboxButton());
   if (!ts.length) {
     wrap.append(h('div', { class: 'empty' }, 'Brak zadań na ten dzień.', h('br'), 'Dotknij +, aby dodać.'));
     return wrap;
@@ -267,9 +484,22 @@ function buildList() {
       t.done = !t.done; t.doneAt = t.done ? Date.now() : null;
       save(); render(null, 'keep');
     });
-    const row = h('div', { class: 'task' + (t.done ? ' done' : '') },
-      cb,
-      h('div', { class: 'tt' }, t.title, t.desc ? h('div', { class: 'sub' }, t.desc.split('\n')[0]) : null));
+    const chips = chipsFor(t, { origin: !t.done, subs: t.done });
+    const tt = h('div', { class: 'tt' },
+      h('div', { class: 'ttl' }, t.title),
+      t.desc ? h('div', { class: 'dsc' }, t.desc.split('\n')[0]) : null,
+      chips.length ? h('div', { class: 'chips' }, ...chips) : null);
+    if (!t.done && t.subs.length) {
+      const subs = h('div', { class: 'subs' });
+      [...t.subs.filter(s => !s.done), ...t.subs.filter(s => s.done)].forEach(s => {
+        const sb = h('button', { class: 'sbw', 'aria-label': 'Zaznacz podzadanie' }, h('span', { class: 'scb', html: CHECK_S }));
+        sb.addEventListener('pointerdown', e => e.stopPropagation());
+        sb.addEventListener('click', e => { e.stopPropagation(); s.done = !s.done; save(); render(null, 'keep'); });
+        subs.append(h('div', { class: 'sub' + (s.done ? ' done' : '') }, sb, h('span', {}, s.title)));
+      });
+      tt.append(subs);
+    }
+    const row = h('div', { class: 'task' + (t.done ? ' done' : '') }, cb, tt);
     press(row, () => showDetail('task', t.id), () => showMenu('task', t.id));
     wrap.append(row);
   });
@@ -283,7 +513,7 @@ function render(anim, scroll) {
   $('themeColor').setAttribute('content', isList ? '#e0f3e3' : '#dfeefb');
   const d = parseKey(day);
   $('tMain').textContent = `${WD[d.getDay()]} ${d.getDate()} ${ROM[d.getMonth()]}`;
-  $('tSub').textContent = d.getFullYear() + (day === keyOf(new Date()) ? ' · dziś' : '');
+  $('tSub').textContent = d.getFullYear() + (day === todayKey() ? ' · dziś' : '');
   const prev = view.scrollTop;
   const content = h('div', { class: 'content' + (anim ? ' ' + anim : '') }, isList ? buildList() : buildCal());
   view.replaceChildren(content);
@@ -292,9 +522,9 @@ function render(anim, scroll) {
   else {
     let target;
     const evs = dayEvents();
-    if (day === keyOf(new Date())) { const n = new Date(); target = n.getHours() * 60 + n.getMinutes() - 90; }
+    if (day === todayKey()) { const n = new Date(); target = n.getHours() * 60 + n.getMinutes() - 90; }
     else if (evs.length) target = toMin(evs[0].start) - 40;
-    else target = 7 * 60 - 20;
+    else target = winOf(day)[0] - 20;
     view.scrollTop = Math.max(0, target);
   }
 }
@@ -312,15 +542,49 @@ function find(kind, id) { return (kind === 'event' ? store.events : store.tasks)
 
 function showDetail(kind, id) {
   const it = find(kind, id); if (!it) return;
-  const meta = kind === 'event'
-    ? [`${it.start} – ${it.end}`, h('br'), longDate(it.date)]
-    : [`Zadanie · ${it.done ? 'wykonane' : 'do zrobienia'}`, h('br'), longDate(it.date)];
-  openSheet(
-    h('h2', {}, it.title),
-    h('div', { class: 'meta' }, meta),
-    h('div', { class: 'desc' + (it.desc ? '' : ' none') }, it.desc || 'Brak opisu'),
-    h('button', { class: 'btn', onclick: closeSheet }, 'Zamknij')
-  );
+  if (kind === 'event') {
+    const [ac] = colorOf(it);
+    const lt = linkedTasks(it.id);
+    const items = [h('h2', {}, it.title),
+      h('div', { class: 'meta' }, `${it.start} – ${it.end}`, h('br'), longDate(it.date))];
+    items.push(h('div', { class: 'chips', style: 'margin:-4px 0 12px' },
+      h('span', { class: 'chip', style: `--c:${ac}` }, h('i', { class: 'dot' }), colorOf(it)[2])));
+    items.push(h('div', { class: 'desc' + (it.desc ? '' : ' none') }, it.desc || 'Brak opisu'));
+    items.push(h('h3', {}, 'Zadania do tego wydarzenia'));
+    if (!lt.length) items.push(h('div', { class: 'meta' }, 'Brak powiązanych zadań.'));
+    lt.forEach(t => {
+      const tg = () => { t.done = !t.done; t.doneAt = t.done ? Date.now() : null; save(); render(null, 'keep'); showDetail('event', id); };
+      const row = h('div', { class: 'sub' + (t.done ? ' done' : ''), style: 'min-height:44px' },
+        h('button', { class: 'sbw', 'aria-label': 'Zaznacz' }, h('span', { class: 'scb', html: CHECK_S })),
+        h('span', {}, t.title));
+      row.children[0].addEventListener('click', tg);
+      items.push(row);
+    });
+    items.push(h('button', { class: 'btn', onclick: () => { back = () => showDetail('event', id); openForm('task', null, { eventId: it.id, date: it.date }); } }, 'Dodaj zadanie do wydarzenia'));
+    items.push(h('button', { class: 'btn', onclick: dismiss }, 'Zamknij'));
+    openSheet(...items);
+    return;
+  }
+  const ev = it.eventId && store.events.find(e => e.id === it.eventId);
+  const meta = [it.date ? longDate(it.date) : 'Bez przypisanego dnia (skrzynka)', h('br'), it.done ? 'Wykonane' : 'Do zrobienia'];
+  const items = [h('h2', {}, it.title), h('div', { class: 'meta' }, meta)];
+  const chips = chipsFor(it, { origin: true });
+  if (chips.length) items.push(h('div', { class: 'chips', style: 'margin:-4px 0 12px' }, ...chips));
+  items.push(h('div', { class: 'desc' + (it.desc ? '' : ' none') }, it.desc || 'Brak opisu'));
+  if (it.subs.length) {
+    items.push(h('h3', {}, 'Podzadania'));
+    [...it.subs.filter(s => !s.done), ...it.subs.filter(s => s.done)].forEach(s => {
+      const row = h('div', { class: 'sub' + (s.done ? ' done' : ''), style: 'min-height:44px' },
+        h('button', { class: 'sbw', 'aria-label': 'Zaznacz' }, h('span', { class: 'scb', html: CHECK_S })),
+        h('span', {}, s.title));
+      row.children[0].addEventListener('click', () => { s.done = !s.done; save(); render(null, 'keep'); showDetail('task', id); });
+      items.push(row);
+    });
+  }
+  if (ev) items.push(h('button', { class: 'btn', onclick: () => { back = () => showDetail('task', id); showDetail('event', ev.id); } }, `Wydarzenie: ${ev.title}`));
+  items.push(h('button', { class: 'btn', onclick: () => { back = () => showDetail('task', id); assignSheet(it); } }, it.date ? 'Zmień dzień' : 'Przypisz do dnia'));
+  items.push(h('button', { class: 'btn', onclick: dismiss }, 'Zamknij'));
+  openSheet(...items);
 }
 
 function showMenu(kind, id) {
@@ -333,72 +597,346 @@ function showMenu(kind, id) {
 }
 
 function confirmDelete(kind, it) {
+  const lt = kind === 'event' ? linkedTasks(it.id) : [];
+  const remove = withTasks => {
+    if (kind === 'event') {
+      store.events = store.events.filter(x => x.id !== it.id);
+      if (withTasks) store.tasks = store.tasks.filter(t => t.eventId !== it.id);
+      else store.tasks.forEach(t => { if (t.eventId === it.id) t.eventId = null; });
+    } else store.tasks = store.tasks.filter(x => x.id !== it.id);
+    save(); finish();
+  };
+  if (lt.length) {
+    const names = lt.slice(0, 5).map(t => `• ${t.title}`).join('\n') + (lt.length > 5 ? `\n… i ${lt.length - 5} więcej` : '');
+    openSheet(
+      h('h2', {}, 'Usunąć też zadania?'),
+      h('div', { class: 'meta' }, `Do wydarzenia „${it.title}” przypisane są zadania (${lt.length}):`),
+      h('div', { class: 'desc' }, names),
+      h('button', { class: 'btn danger', onclick: () => remove(true) }, `Usuń wydarzenie i zadania (${lt.length})`),
+      h('button', { class: 'btn', onclick: () => remove(false) }, 'Usuń tylko wydarzenie (zadania zostają)'),
+      h('button', { class: 'btn', onclick: dismiss }, 'Anuluj')
+    );
+    return;
+  }
   openSheet(
     h('h2', {}, 'Usunąć?'),
     h('div', { class: 'meta' }, `„${it.title}” zostanie trwale usunięte.`),
-    h('button', { class: 'btn danger', onclick: () => {
-      if (kind === 'event') store.events = store.events.filter(x => x.id !== it.id);
-      else store.tasks = store.tasks.filter(x => x.id !== it.id);
-      save(); closeSheet(); render(null, 'keep');
-    } }, 'Usuń'),
-    h('button', { class: 'btn', onclick: closeSheet }, 'Anuluj')
+    h('button', { class: 'btn danger', onclick: () => remove(false) }, 'Usuń'),
+    h('button', { class: 'btn', onclick: dismiss }, 'Anuluj')
+  );
+}
+
+/* ---------- Skrzynka zadań i przypisywanie do dnia ---------- */
+function dayLabel(k) {
+  const t = todayKey();
+  if (k === t) return 'dziś';
+  if (k === addDays(t, 1)) return 'jutro';
+  return shortDate(k);
+}
+
+function assignTo(t, k) {
+  t.date = k;
+  if (t.eventId) {
+    const ev = store.events.find(e => e.id === t.eventId);
+    if (ev && ev.date !== k) t.eventId = null; /* wydarzenie jest w innym dniu */
+  }
+  save();
+  const l = loadFor(k);
+  let msg = `Przeniesiono na ${dayLabel(k)}`;
+  if (l.over > 0) msg += ` — uwaga: dzień przeciążony o ${fmtDur(l.over)}`;
+  if (t.deadline && k > t.deadline) msg += ' (po terminie!)';
+  toast(msg);
+}
+
+function openInbox() {
+  const list = inboxTasks().sort((a, b) => {
+    if (a.deadline && b.deadline) return a.deadline.localeCompare(b.deadline);
+    if (a.deadline) return -1;
+    if (b.deadline) return 1;
+    return (a.date || '').localeCompare(b.date || '') || a.created - b.created;
+  });
+  const body = list.map(t => {
+    const quick = (label, k) => h('button', { onclick: () => { assignTo(t, k); openInbox(); render(null, 'keep'); } }, label);
+    return h('div', { class: 'ibx' },
+      h('div', { class: 'ittl' }, t.title),
+      h('div', { class: 'chips' }, ...chipsFor(t, { origin: true, subs: true })),
+      h('div', { class: 'acts' },
+        quick('Dziś', todayKey()),
+        quick('Jutro', addDays(todayKey(), 1)),
+        h('button', { onclick: () => { back = openInbox; assignSheet(t); } }, 'Inny dzień…'),
+        h('button', { class: 'more', 'aria-label': 'Więcej', onclick: () => { back = openInbox; showMenu('task', t.id); } }, '⋯')));
+  });
+  openSheet(
+    h('h2', {}, 'Skrzynka zadań'),
+    h('div', { class: 'meta' }, 'Niewykonane zadania z minionych dni oraz zadania bez dnia. Przypisz je do dnia, w którym je zrobisz.'),
+    ...(body.length ? body : [h('div', { class: 'empty' }, 'Skrzynka jest pusta.')]),
+    h('button', { class: 'btn', onclick: () => { closeSheet(); render(null, 'keep'); } }, 'Zamknij')
+  );
+}
+
+function assignSheet(t) {
+  const fDate = h('input', { type: 'date' });
+  const hint = h('div', { class: 'hint' });
+  fDate.value = t.date && t.date >= todayKey() ? t.date : addDays(todayKey(), 1);
+  const upd = () => {
+    if (!fDate.value) { hint.textContent = ''; return; }
+    const l = loadFor(fDate.value, t.est || 0, t.id);
+    let txt = loadText(l), warn = l.over > 0;
+    if (t.deadline && fDate.value > t.deadline) { txt += ' · Ten dzień jest po terminie zadania.'; warn = true; }
+    hint.textContent = txt; hint.className = 'hint' + (warn ? ' warn' : '');
+  };
+  fDate.addEventListener('change', upd); fDate.addEventListener('input', upd);
+  upd();
+  openSheet(
+    h('h2', {}, 'Przypisz do dnia'),
+    h('div', { class: 'meta' }, t.title),
+    h('div', { class: 'field' }, h('label', {}, 'Dzień'), fDate),
+    hint,
+    h('button', { class: 'btn primary', onclick: () => {
+      if (!fDate.value) return;
+      assignTo(t, fDate.value); finish();
+    } }, 'Przypisz'),
+    h('button', { class: 'btn', onclick: dismiss }, 'Anuluj')
+  );
+}
+
+/* ---------- Ustawienia snu ---------- */
+function openSettings() {
+  const order = [1, 2, 3, 4, 5, 6, 0];
+  const names = { 1: 'Pn', 2: 'Wt', 3: 'Śr', 4: 'Cz', 5: 'Pt', 6: 'So', 0: 'Nd' };
+  const full = { 1: 'Poniedziałek', 2: 'Wtorek', 3: 'Środa', 4: 'Czwartek', 5: 'Piątek', 6: 'Sobota', 0: 'Niedziela' };
+  const ins = {};
+  const err = h('div', { class: 'err' });
+  const cell = (label, input) => h('div', { class: 'sc' }, h('small', {}, label), input);
+  const blocks = order.map(d => {
+    const s = store.settings.sleep[d];
+    const w = h('input', { type: 'time' }), b = h('input', { type: 'time' });
+    const ws = h('input', { type: 'time' }), we = h('input', { type: 'time' });
+    const cm = h('input', { type: 'number', min: '0', max: '600', step: '5', inputmode: 'numeric', placeholder: '0' });
+    w.value = s.wake; b.value = s.bed; ws.value = s.wStart; we.value = s.wEnd; cm.value = s.commute ? String(s.commute) : '';
+    ins[d] = { w, b, ws, we, cm };
+    return h('div', { class: 'sday' },
+      h('b', {}, full[d]),
+      h('div', { class: 'sgrid' }, cell('Wstaję', w), cell('Idę spać', b), cell('Praca od', ws), cell('Praca do', we)),
+      h('div', { class: 'sgrid one' }, cell('Powrót do domu (minuty po pracy)', cm)));
+  });
+  openSheet(
+    h('h2', {}, 'Sen, praca i dostępny czas'),
+    h('div', { class: 'meta' }, 'Dla każdego dnia podaj, o której wstajesz i idziesz spać (po północy wpisz np. 01:00), oraz — jeśli pracujesz — godziny pracy i ile trwa powrót do domu. Pola pracy zostaw puste w dni wolne. Z tego i z wydarzeń liczę, ile czasu zostaje na zadania.'),
+    ...blocks,
+    h('button', { class: 'btn', onclick: () => {
+      const m = ins[1];
+      order.forEach(d => { for (const k of ['w', 'b', 'ws', 'we', 'cm']) ins[d][k].value = m[k].value; });
+    } }, 'Skopiuj poniedziałek na wszystkie dni'),
+    err,
+    h('button', { class: 'btn primary', onclick: () => {
+      for (const d of order) {
+        const x = ins[d];
+        if (!x.w.value || !x.b.value) { err.textContent = `${full[d]}: uzupełnij godziny wstawania i snu.`; return; }
+        if (x.w.value === x.b.value) { err.textContent = `${full[d]}: godzina wstawania i snu nie mogą być takie same.`; return; }
+        if (!!x.ws.value !== !!x.we.value) { err.textContent = `${full[d]}: podaj początek i koniec pracy albo zostaw oba pola puste.`; return; }
+        if (x.ws.value && toMin(x.we.value) <= toMin(x.ws.value)) { err.textContent = `${full[d]}: koniec pracy musi być później niż początek.`; return; }
+      }
+      order.forEach(d => {
+        const x = ins[d];
+        const cmv = Math.min(600, Math.max(0, parseInt(x.cm.value, 10) || 0));
+        store.settings.sleep[d] = { wake: x.w.value, bed: x.b.value, wStart: x.ws.value || '', wEnd: x.we.value || '', commute: x.ws.value ? cmv : 0 };
+      });
+      save(); finish();
+    } }, 'Zapisz'),
+    h('button', { class: 'btn', onclick: dismiss }, 'Anuluj')
   );
 }
 
 /* ---------- Formularz dodawania / edycji ---------- */
-function openForm(kind, item) {
+function openForm(kind, item, preset) {
   const isEv = kind === 'event';
   const edit = !!item;
+  preset = preset || {};
   const fTitle = h('input', { type: 'text', maxlength: '120', placeholder: isEv ? 'np. Spotkanie z zespołem' : 'np. Kupić mleko', autocomplete: 'off' });
   const fDate = h('input', { type: 'date' });
   const fS = h('input', { type: 'time' });
   const fE = h('input', { type: 'time' });
   const fDesc = h('textarea', { rows: '3', placeholder: 'Opcjonalny opis' });
   const err = h('div', { class: 'err' });
+  const field = (label, input) => h('div', { class: 'field' }, h('label', {}, label), input);
 
   fTitle.value = item ? item.title : '';
-  fDate.value = item ? item.date : day;
   fDesc.value = item && item.desc ? item.desc : '';
+
+  /* --- wydarzenie --- */
+  let color = 0;
+  let swBox = null;
   if (isEv) {
+    fDate.value = item ? item.date : day;
     let s, e;
     if (item) { s = toMin(item.start); e = toMin(item.end); }
     else {
       const now = new Date();
-      s = day === keyOf(now) ? Math.min((now.getHours() + 1) * 60, 23 * 60) : 9 * 60;
+      s = day === todayKey() ? Math.min((now.getHours() + 1) * 60, 23 * 60) : 9 * 60;
       e = Math.min(s + 60, 24 * 60 - 1);
     }
     fS.value = fromMin(s); fE.value = fromMin(e);
+    color = item ? PAL.indexOf(colorOf(item)) : 0;
+    swBox = h('div', { class: 'sw' });
+    const drawSw = () => {
+      swBox.replaceChildren(...PAL.map((p, i) => {
+        const b = h('button', { class: i === color ? 'on' : '', style: `--c:${p[0]}`, 'aria-label': p[2], type: 'button' });
+        b.addEventListener('click', () => { color = i; drawSw(); });
+        return b;
+      }));
+    };
+    drawSw();
   }
 
-  const field = (label, input) => h('div', { class: 'field' }, h('label', {}, label), input);
+  /* --- zadanie --- */
+  const fEst = h('input', { type: 'number', min: '0', max: '1440', step: '5', inputmode: 'numeric', placeholder: 'np. 45' });
+  const fDead = h('input', { type: 'date' });
+  const fNoDay = h('input', { type: 'checkbox' });
+  const fEvent = h('select');
+  const hint = h('div', { class: 'hint' });
+  let subs = [];
+  const subBox = h('div', { class: 'subed' });
+  let eventId = null;
+
+  const estVal = () => Math.min(1440, Math.max(0, parseInt(fEst.value, 10) || 0));
+
+  const fillEvents = () => {
+    const d = fDate.value;
+    const opts = [h('option', { value: '' }, '— brak —')];
+    if (!fNoDay.checked && d) {
+      store.events.filter(e => e.date === d).sort((a, b) => a.start.localeCompare(b.start))
+        .forEach(e => opts.push(h('option', { value: e.id }, `${e.start} ${e.title}`)));
+    }
+    fEvent.replaceChildren(...opts);
+    const ok = !!eventId && opts.some(o => o.getAttribute('value') === eventId);
+    fEvent.value = ok ? eventId : '';
+    if (!ok) eventId = null;
+  };
+  const updHint = () => {
+    if (fNoDay.checked) { hint.textContent = 'Zadanie trafi do skrzynki — przypiszesz je do dnia później.'; hint.className = 'hint'; return; }
+    if (!fDate.value) { hint.textContent = ''; return; }
+    const est = estVal();
+    const l = loadFor(fDate.value, est, item && !isEv ? item.id : null);
+    let txt = loadText(l), warn = l.over > 0 && (est > 0 || l.planned > 0);
+    if (fDead.value && fDate.value > fDead.value) { txt += ' · Ten dzień jest po terminie.'; warn = true; }
+    hint.textContent = txt; hint.className = 'hint' + (warn ? ' warn' : '');
+  };
+
+  /* Wiersz podzadania: szary, nieaktywny checkbox + pole tekstowe.
+     Pusty wiersz („duch”) zawsze czeka na końcu; gdy zaczniesz w nim pisać,
+     staje się podzadaniem, a pod nim pojawia się kolejny blady wiersz. */
+  const subRow = (s) => {
+    let cur = s;
+    const inp = h('input', { type: 'text', maxlength: '120', placeholder: s ? 'Podzadanie' : 'Dodaj podzadanie', autocomplete: 'off' });
+    const row = h('div', { class: 'inline subrow' + (s ? '' : ' ghost') }, h('span', { class: 'gcb' }), inp);
+    row._inp = inp;
+    const del = h('button', { class: 'mini', type: 'button', 'aria-label': 'Usuń podzadanie' }, '✕');
+    del.addEventListener('click', () => { subs = subs.filter(x => x !== cur); row.remove(); });
+    if (s) { inp.value = s.title; row.append(del); }
+    inp.addEventListener('input', () => {
+      if (!cur) {
+        if (!inp.value.trim()) return;
+        cur = { id: uid(), title: '', done: false };
+        subs.push(cur);
+        row.classList.remove('ghost');
+        inp.setAttribute('placeholder', 'Podzadanie');
+        row.append(del);
+        subBox.append(subRow(null));
+      }
+      cur.title = inp.value;
+    });
+    inp.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      const rows = Array.from(subBox.children);
+      const nx = rows[rows.indexOf(row) + 1];
+      if (nx && nx._inp) nx._inp.focus();
+    });
+    return row;
+  };
+  const drawSubs = () => {
+    subBox.replaceChildren(...subs.map(s => subRow(s)), subRow(null));
+  };
+
+  if (!isEv) {
+    const date0 = item ? item.date : (preset.date !== undefined ? preset.date : day);
+    fNoDay.checked = date0 === null;
+    fDate.value = date0 || day;
+    fEst.value = item && item.est ? String(item.est) : '';
+    fDead.value = item && item.deadline ? item.deadline : '';
+    eventId = item ? item.eventId : (preset.eventId || null);
+    subs = item ? item.subs.map(s => ({ id: s.id, title: s.title, done: s.done })) : [];
+    fDate.addEventListener('change', () => { fillEvents(); updHint(); });
+    fDate.addEventListener('input', () => { fillEvents(); updHint(); });
+    fNoDay.addEventListener('change', () => { fillEvents(); updHint(); });
+    fEst.addEventListener('input', updHint);
+    fDead.addEventListener('change', updHint); fDead.addEventListener('input', updHint);
+    fEvent.addEventListener('change', () => { eventId = fEvent.value || null; });
+    fillEvents(); updHint(); drawSubs();
+  }
+
+  const chips = [15, 30, 45, 60, 90, 120].map(m => {
+    const b = h('button', { type: 'button' }, fmtDur(m));
+    b.addEventListener('click', () => { fEst.value = String(m); updHint(); });
+    return b;
+  });
+
   const onSave = () => {
     const title = fTitle.value.trim();
     if (!title) { err.textContent = 'Podaj nazwę.'; fTitle.focus(); return; }
-    if (!fDate.value) { err.textContent = 'Wybierz datę.'; return; }
     if (isEv) {
+      if (!fDate.value) { err.textContent = 'Wybierz datę.'; return; }
       if (!fS.value || !fE.value) { err.textContent = 'Podaj godzinę początku i końca.'; return; }
       if (toMin(fE.value) <= toMin(fS.value)) { err.textContent = 'Koniec musi być później niż początek.'; return; }
+      const data = { title, date: fDate.value, desc: fDesc.value.trim(), start: fS.value, end: fE.value, color };
+      if (edit) {
+        if (item.date !== data.date) store.tasks.forEach(t => { if (t.eventId === item.id) t.date = data.date; });
+        Object.assign(item, data);
+      } else store.events.push(Object.assign({ id: uid() }, data));
+      if (!back) day = data.date;
+    } else {
+      const noDay = fNoDay.checked;
+      if (!noDay && !fDate.value) { err.textContent = 'Wybierz datę albo zaznacz „Bez dnia”.'; return; }
+      const data = {
+        title, desc: fDesc.value.trim(),
+        date: noDay ? null : fDate.value,
+        est: estVal(), deadline: fDead.value || null,
+        eventId: noDay ? null : (eventId || null),
+        subs: subs.map(s => ({ id: s.id, title: s.title.trim(), done: s.done })).filter(s => s.title)
+      };
+      if (edit) Object.assign(item, data);
+      else store.tasks.push(Object.assign({ id: uid(), done: false, doneAt: null, created: Date.now() }, data));
+      if (!back && data.date) day = data.date;
     }
-    const data = { title, date: fDate.value, desc: fDesc.value.trim() };
-    if (isEv) { data.start = fS.value; data.end = fE.value; }
-    if (edit) Object.assign(item, data);
-    else if (isEv) store.events.push(Object.assign({ id: uid() }, data));
-    else store.tasks.push(Object.assign({ id: uid(), done: false, doneAt: null, created: Date.now() }, data));
-    day = data.date;
-    save(); closeSheet(); render();
+    save(); finish();
   };
 
-  openSheet(
+  const parts = [
     h('h2', {}, (edit ? 'Edytuj ' : 'Nowe ') + (isEv ? 'wydarzenie' : 'zadanie')),
     h('div', { style: 'height:12px' }),
-    field('Nazwa', fTitle),
-    field('Data', fDate),
-    isEv ? h('div', { class: 'row' }, field('Od', fS), field('Do', fE)) : null,
-    field('Opis', fDesc),
-    err,
+    field('Nazwa', fTitle)
+  ];
+  if (isEv) {
+    parts.push(field('Data', fDate), h('div', { class: 'row' }, field('Od', fS), field('Do', fE)),
+      h('div', { class: 'field' }, h('label', {}, 'Kolor'), swBox), field('Opis', fDesc));
+  } else {
+    parts.push(
+      field('Dzień', fDate),
+      h('label', { class: 'chk' }, fNoDay, 'Bez dnia (do skrzynki)'),
+      h('div', { class: 'field' }, h('label', {}, 'Prognozowany czas (minuty)'), fEst, h('div', { class: 'chipsel' }, ...chips)),
+      hint,
+      h('div', { class: 'field' }, h('label', {}, 'Termin (deadline)'),
+        h('div', { class: 'inline' }, fDead,
+          h('button', { class: 'mini', type: 'button', onclick: () => { fDead.value = ''; updHint(); } }, 'Wyczyść'))),
+      field('Powiąż z wydarzeniem tego dnia', fEvent),
+      h('div', { class: 'field' }, h('label', {}, 'Podzadania'), subBox),
+      field('Opis', fDesc));
+  }
+  parts.push(err,
     h('button', { class: 'btn primary', onclick: onSave }, 'Zapisz'),
-    h('button', { class: 'btn', onclick: closeSheet }, 'Anuluj')
-  );
+    h('button', { class: 'btn', onclick: dismiss }, 'Anuluj'));
+  openSheet(...parts);
   if (!edit) setTimeout(() => fTitle.focus(), 220);
 }
 
@@ -406,12 +944,12 @@ function openForm(kind, item) {
 $('prev').addEventListener('click', () => go(-1));
 $('next').addEventListener('click', () => go(1));
 $('title').addEventListener('click', () => {
-  const t = keyOf(new Date());
+  const t = todayKey();
   if (day !== t) { const dir = t > day ? 'in-r' : 'in-l'; day = t; render(dir); }
   else render(null);
 });
 $('sw').addEventListener('click', setMode);
-$('add').addEventListener('click', () => openForm(store.mode === 'cal' ? 'event' : 'task'));
+$('add').addEventListener('click', () => { back = null; openForm(store.mode === 'cal' ? 'event' : 'task'); });
 
 /* Przesuwanie palcem: lewo = następny dzień, prawo = poprzedni */
 let tx = 0, ty = 0, tt = 0, tracking = false;
@@ -428,7 +966,7 @@ view.addEventListener('touchend', e => {
 view.addEventListener('touchcancel', () => { tracking = false; }, { passive: true });
 
 document.addEventListener('keydown', e => {
-  if (overlay) { if (e.key === 'Escape') closeSheet(); return; }
+  if (overlay) { if (e.key === 'Escape') dismiss(); return; }
   if (e.key === 'ArrowLeft') go(-1);
   if (e.key === 'ArrowRight') go(1);
 });
@@ -438,7 +976,7 @@ try {
   const App = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
   if (App && App.addListener) {
     App.addListener('backButton', () => {
-      if (overlay) closeSheet();
+      if (overlay) dismiss();
       else if (store.mode === 'list') setMode();
       else App.exitApp();
     });
